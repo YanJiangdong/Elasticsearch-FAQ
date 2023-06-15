@@ -17,8 +17,8 @@ FAQ2：节点监控CPU利用率为何各个节点之间不均匀，这个问题�
 同时需要索引索引的主副分片数是否合理。
 解决办法：由于是CPU使用率较高，集群环境是2C8G，CPU配置较低。建议提高CPU核数。在后续索引重新规划主分片数，尽量使主分片数与数据节点数保持倍数关系。
 
-FAQ3："code":5002,"message":"elastic: Error 429 (Too Many Requests): rejected execution of org.elasticsearch.transport.TransportService$7@2eaee51a on EsThreadPoolExecutor
-原因：由于ES线程池在某一个时间段群收到大量请求且无法再接收任何请求时通常会发生“es_rejected_execution_exception”异常。每个节点都有一个线程池队列，可以容纳 50 到 200 个请求，具体取决于您使用的 Elasticsearch 版本。队列已满时，将拒绝新请求。
+FAQ3："code":5002,"message":"elastic: Error 429 (Too Many Requests): rejected execution of org.elasticsearch.transport.TransportService$7@2eaee51a on EsThreadPoolExecutor 
+原因：由于ES线程池在某一个时间段群收到大量请求且无法再接收任何请求时通常会发生“es_rejected_execution_exception”异常。每个节点都有一个线程池队列，可以容纳 50 到 200 个请求，具体取决于您使用的 Elasticsearch 版本。队列已满时，将拒绝新请求。 
 解决办法：
 1.添加更多节点：每个节点都有一个批量队列，因此添加更多节点可以为您提供更多的排队容量。
 2.切换到更大的实例类型：对于批量请求，每个节点上线程池中的线程数等于可用处理器的数量。切换到具有更多虚拟 CPU (vCPU) 的实例，以获取更多线程来处理批量请求。
@@ -40,10 +40,10 @@ FAQ5：断路器专题
 FAQ6：字段类型从keyword修改为text执行reindex报错"reason": "Mixing up field types: class org.elasticsearch.index.mapper.KeywordFieldMapper$KeywordFieldType != class org.elasticsearch.index.mapper.TextFieldMapper$TextFieldType on field manual_tags"
 
 
-FAQ7：由于长期未处理分片导致分片不均，进而集群健康状态yellow
+FAQ7：由于长期未处理分片导致分片不均，进而集群健康状态yellow 
 原因：由于集群中个别的index分片不均，导致单个分片容量过大。es在分配分片时超出最大重试次数后，就不会在尝试恢复。需要手动触发。
 解决办法：POST _cluster/reroute?retry_failed=true  执行命令，手动让es重新均衡分片。
 
 FAQ8：logstash向ES写入数据，报错：ElasticSearch logstash getting 403 response when trying to call /_bulk (on private IP)
-原因：由于ES集群磁盘空间已满，导致ES拒绝logstash的数据写入请求。具体需要结合上下游情况进行分析。
+原因：由于ES集群磁盘空间已满，导致ES拒绝logstash的数据写入请求。具体需要结合上下游情况进行分析。 
 解决办法：对ES集群磁盘进行扩容或者删除部分索引数据释放磁盘空间
