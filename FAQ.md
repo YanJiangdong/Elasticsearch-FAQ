@@ -1,4 +1,4 @@
-FAQ1:org.elasticsearch.cluster.block.ClusterBlockException: blocked by: [FORBIDDEN/12/index read-only / allow delete (api)];
+<h4>FAQ1:org.elasticsearch.cluster.block.ClusterBlockException: blocked by: [FORBIDDEN/12/index read-only / allow delete (api)];</h4>
 ![img_1.png](img_1.png)
 原因：
 ![img_3.png](img_3.png)
